@@ -1,0 +1,42 @@
+/* table styling */
+table, body {
+  font-family: "Lucida Sans", Verdana, Arial, sans-serif;
+  font-size: 1em;
+}
+table {
+  border-collapse: collapse;
+}
+td, th {
+  border: solid 1pt #949493 ;
+  padding: 5px;
+}
+thead, tfoot {
+  background-color: lightsalmon;
+}
+caption {
+  text-align: left;
+  font-weight: bold;
+  background-color: lightcoral;
+  text-transform: uppercase;
+  padding: 10px;
+  font-size: large;
+}
+tbody tr:nth-child(even) {
+  background-color: lightgray;
+}
+tbody tr:hover:not(.subheader) {
+  background-color: black;
+  color: white;
+}
+
+/* footer and header */
+header, footer {
+  color: #111313;
+}
+h1 {
+  font-size: 2rem;
+  padding: 0.5em;
+}
+footer p{
+  font-size: 1rem;
+}
