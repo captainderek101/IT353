@@ -1,0 +1,25 @@
+* {
+    background-color: lightcyan;
+    color:darkslategray;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+}
+body, div {
+    padding: 30px;
+}
+a {
+    color: coral;
+}
+.gallery img {
+    object-fit: cover;
+    height: 200px;
+    width: 320px;
+}
+.socials img {
+    object-fit: cover;
+    height: 32px;
+    width: 32px;
+}
+#photo {
+    width: 60%;
+}
