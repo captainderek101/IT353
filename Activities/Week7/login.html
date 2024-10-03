@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Week 7 In-Class Exercise - Login Form</title>
+    <script>
+        window.addEventListener("load", function(event) {
+            var button = document.getElementById("registerButton");
+            button.addEventListener("click", function(event) {
+                var username = document.getElementById("username").value;
+                if(username == "") {
+                    event.preventDefault();
+                    window.alert("Must provide a User Name!");
+                    return;
+                }
+            })
+        });
+    </script>
+</head>
+<body>
+    <form method="get" id="loginform">
+        <fieldset>
+            <legend>Login Form</legend>
+            <p>
+                <input type="text" id="username" value="" placeholder="User Name">
+                <input type="text" id="email" value="" placeholder="Email">
+                <input type="text" id="password" value="" placeholder="Password">
+            </p>
+            <button type="submit" id="registerButton">Register</button>
+        </fieldset>
+    </form>
+</body>
+</html>

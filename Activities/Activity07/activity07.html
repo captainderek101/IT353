@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Activity 07 - JavaScript and DOM</title>
+    <script>
+        window.addEventListener("load", function(event) {
+            var button = document.getElementById("resultButton");
+            button.addEventListener("click", function(event) {
+                var number1 = parseFloat(document.getElementById("number1").value);
+                var number2 = parseFloat(document.getElementById("number2").value);
+                if(isNaN(number1) || isNaN(number2)) {
+                    event.preventDefault();
+                    window.alert("Missing values!");
+                    return;
+                }
+                document.getElementById("result").value = number1 + number2;
+            })
+        });
+    </script>
+</head>
+<body>
+    <h1>Calculator to add two numbers</h1>
+    <p>
+        <input type="text" id="number1" value="" placeholder="Number A">
+         + 
+        <input type="text" id="number2" value="" placeholder="Number B">
+         = 
+        <input type="text" id="result" value="" disabled="1" placeholder="Result">
+
+        <button type="" id="resultButton">Result</button>
+    </p>
+</body>
+</html>
