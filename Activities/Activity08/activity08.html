@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Week 7 In-Class Exercise - Login Form</title>
+    <script>
+        window.addEventListener("load", function(event) {
+            var button = document.getElementById("registerButton");
+            button.addEventListener("click", function(event) {
+                var username = document.getElementById("username").value;
+                var country = document.getElementById("country").value;
+                var save = document.getElementById("save").checked;
+
+                var alertMessage = "";
+                if(username == "") {
+                    alertMessage += "Must provide a User Name!\n";
+                }
+                if(country == "Select a country") {
+                    alertMessage += "Must select a Country!\n";
+                }
+                if(save == false) {
+                    alertMessage += "Must click Save before submitting!\n";
+                }
+
+                if(alertMessage != "") {
+                    event.preventDefault();
+                    window.alert(alertMessage);
+                    return;
+                }
+            })
+        });
+    </script>
+</head>
+<body>
+    <form method="get" id="loginform">
+        <fieldset>
+            <legend>Login Form</legend>
+            <p>
+                <input type="text" id="username" value="" placeholder="User Name">
+                <input type="text" id="email" value="" placeholder="Email">
+                <input type="text" id="password" value="" placeholder="Password">
+            </p>
+            <p>
+                <label for="country">Country*</label>
+                <select id="country">
+                    <option>Select a country</option>
+                    <option>USA</option>
+                    <option>Canada</option>
+                </select>
+            </p>
+            <p>
+                <label for="save">Check to Save*</label>
+                <input type="checkbox" id="save">
+            </p>
+            <button type="submit" id="registerButton">Register</button>
+        </fieldset>
+    </form>
+</body>
+</html>
