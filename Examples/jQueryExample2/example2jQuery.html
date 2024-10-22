@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Example 02 - jQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      let recording = true;
+
+      function changeMessage(newText) {
+          if(!recording) {
+              return;
+          }
+          $("#message").html(newText);
+      }
+      function stopRecording() {
+          changeMessage("you clicked, stop reporting")
+          recording = false;
+      }
+
+      $(document).ready(function() {
+          var $panel = $(".panel");
+          $panel.on("mousemove", (e) => changeMessage("x=" + e.pageX + " y=" + e.pageY));
+          $panel.on("mouseleave", () => changeMessage("goodbye!"));
+          $panel.on("mousedown", () => stopRecording());
+      });
+    </script>
+  <style type = "text/css">
+    .panel {
+      font-size:1.5em;
+      background-color: lightblue;
+      width: 300px;
+      height: 100px;
+    }
+  </style>
+  </head>
+  <body>
+    <header>
+    <h1 id="header">Hello There</h1>
+   </header>
+   <main id = "main">
+     <button class = "panel" id ="message">
+       Move mouse over
+    </button>
+
+   </main>
+</body>
+</html>
