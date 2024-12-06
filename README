@@ -1,0 +1,4 @@
+The project website (CS2 Lineups) without the database running on phpmyadmin.
+
+In the project folder there is a file named 'it353_project.sql'.
+Import that file into your phpmyadmin and the project should work.

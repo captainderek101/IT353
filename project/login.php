@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
         <title>CS2 Lineups - Login Results</title>
+        <?php
+            include 'elements/head.inc.php';
+        ?>
     </head>
     <body>
         <h1>Login</h1>
-        <h2> Welcome <?php echo $username ?>! </h2>
-        
-        <form action="login.php" method="GET">
+        <?php
+            include 'elements/php/connect.inc.php';
+        ?>
+        <?php
+            include 'elements/navbar.inc.php';
+        ?>
+
+
+        <form id="typical" action="login.php" method="POST">
             <p>
                 <label for="username">Username: </label>
                 <input type="text" id="username" name="username" placeholder="Enter username">
@@ -18,18 +26,33 @@
                 <input type="text" id="password" name="password" placeholder="Enter password">
             </p>
             <p>
-                <input type="submit" value="Click here to submit">
+                <input type="submit" value="Log In">
             </p>
         </form>
+        <a href="register.php"><p id="specialLink">Register new account</p></a>
         <?php
-        if($_SERVER["REQUEST_METHOD"] == "GET"){
-            $username = $_GET["username"];
-            $password = $_GET["password"];
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+            $username = strtolower($_POST["username"]);
+            $password = $_POST["password"];
+            $sql = "SELECT userID FROM Users WHERE username = '$username' AND BINARY password = '$password'";
+
+            $result = $conn->query($sql);
+            if($result->num_rows == 1)
+            {
+                session_start();
+                $_SESSION['user'] = $username;
+                $row = $result->fetch_assoc();
+                $_SESSION['userID'] = $row["userID"];
+                //echo "<h2> Welcome $username! </h2>";
+                header('Location: index.php');
+                die();
+            }
+            else
+            {
+                echo "<h2> Login Failed. </h2>";
+            }
         }
         ?>
-        <!-- TODO: Check database
-            If user exists, redirect to home page
-            If user doesn't exist, go to login page with error -->
     </body>
     <?php
         include 'elements/footer.inc.html';

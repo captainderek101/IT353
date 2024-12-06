@@ -1,9 +1,12 @@
+<label for="map">Filter by Map: </label>
 <?php
-    include 'dropdowns/maps.options.inc.html';
+    include 'dropdowns/mapfilter.options.inc.html';
 ?>
+<label for="grenade"> Filter by Grenade: </label>
 <?php
-    include 'dropdowns/grenades.options.inc.html';
+    include 'dropdowns/grenadefilter.options.inc.html';
 ?>
+<label for="sortBy"> Sort By: </label>
 <?php
     include 'dropdowns/sorting.options.inc.html';
 ?>
