@@ -18,12 +18,12 @@
 
         <form id="typical" action="register.php" method="POST">
             <p>
-                <label for="username">Username: </label>
-                <input type="text" id="username" name="username" placeholder="New username">
+                <label class="required" for="username">Username: </label>
+                <input required type="text" id="username" name="username" placeholder="New username" maxlength="16">
             </p>
             <p>
-                <label for="password">Password: </label>
-                <input type="text" id="password" name="password" placeholder="New password (case-sensitive)">
+                <label class="required" for="password">Password: </label>
+                <input required type="text" id="password" name="password" placeholder="New password (case-sensitive)" maxlength="64">
             </p>
             <p>
                 <input type="submit" value="Register Account">
@@ -37,7 +37,11 @@
             $result = $conn->query($sql);
             if($result->num_rows > 0)
             {
-                echo "<h2> Username already exists! </h2>";
+                echo "<h2 id='error'> Username already exists! </h2>";
+            }
+            else if($username == "" || $password == "")
+            {
+                echo "<h2 id='error'> Must provide a username and a password! </h2>";
             }
             else
             {
@@ -57,7 +61,7 @@
                 }
                 else
                 {
-                    echo "<h2> Registration Failed. </h2>";
+                    echo "<h2 id='error'> Registration Failed. </h2>";
                 }
             }
         }

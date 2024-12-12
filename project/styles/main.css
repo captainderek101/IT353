@@ -11,6 +11,15 @@ h1 {
     text-align: center;
     color: #4CAF50;
 }
+#screenshot {
+    margin-left: 5%;
+    min-width: 80%;
+    max-width: 80%;
+}
+#error {
+    text-align: center;
+    color: #aa4444;
+}
 
 /* General form styling */
 #typical {
@@ -26,7 +35,7 @@ h1 {
     margin: 10px 0 5px;
 }
 #typical select,
-#typical input[type="submit"],
+p input[type="submit"],
 #specialLink {
     width: 100%;
     padding: 10px;
@@ -34,28 +43,39 @@ h1 {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
-
-#delete,
-#logout {
+#searchInput {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+input[type="submit"]:hover,
+#specialLink:hover {
+    border-color: #333;
+    border-style: double;
+}
+#delete {
     padding-left: 10px;
     line-height: 1;
     display: inline-block;
     white-space: nowrap;
 }
-
-#logout {
-    right: 10px;
-}
-
 #comment {
     padding: 2.5%;
     width: 95%;
 }
-
 #specialLink {
     margin-left: 30%;
     width: 40%;
     text-align: center;
+}
+textarea {
+    resize: vertical;
+}
+.required:after {
+    content:" *";
+    color: #aa4444;
 }
 
 /* Navbar styling */
@@ -68,24 +88,35 @@ h1 {
     overflow: hidden;
 }
 #navbar ul li,
-#navbar ul li div {
+#navbar ul li div,
+#logout {
     display: inline;
 }
-#navbar ul li a,
-#navbar ul li form {
+#navbar ul li a {
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 50px;
+    height: 50px;
+    width: 100px;
+    padding: 15px 20px;
+}
+#navbar input[type="submit"] {
     text-decoration: none;
     color: white;
     display: inline-block;
     vertical-align: middle;
-    height: 50px;
-    width: 100px;
-    padding: 15px 20px;
+    height: 84px;
+    width: 144px;
 }
 #navbar ul li img {
     object-fit: contain;
     height: 50px;
 }
-#navbar ul li #nav {
+#navbar ul li #nav,
+#navbar input[type="submit"] {
     border: 2px solid;
     border-color: #777777;
     border-radius: 5px;
@@ -94,9 +125,13 @@ h1 {
 #navbar ul li #logo {
     background: #464646;
 }
-#navbar ul li #nav:hover {
+#navbar ul li #nav:hover,
+#navbar input[type="submit"]:hover {
     background: #575757;
     border-color: #4CAF50; /* Highlight outline on hover */
+}
+#navbar input[type="submit"] {
+    background-color: transparent;
 }
 
 /* Results list styling */
@@ -120,11 +155,28 @@ h1 {
 #results ul li a:hover {
     color: #575757;
 }
+.column {
+    float: left;
+    width: 30%;
+}
+.row {
+    width: 100%;
+}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
 
 /* Post contents styling */
 #contents {
+    width: 80%;
     margin-left: 10%;
     white-space: pre;
+}
+#contents div,
+#results div {
+    white-space: pre-line;
 }
 
 /* Footer styling */

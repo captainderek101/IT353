@@ -14,15 +14,15 @@
         <?php
             include 'elements/navbar.inc.php';
         ?>
-        <form id="typical" action="index.php" method="GET">
+        <form id="typical" action="" method="GET">
+            <label for='searchInput'>Search by title:</label>
+            <input type="text" id="searchInput" onkeyup="applySearchQuery()" placeholder="Enter query">
             <?php
                 include 'elements/filters.inc.php';
             ?>
-            <input type="submit" value="Apply Filters">
         </form>
         <!-- List of results -->
         <div id='results'>
-        <ul>
         <?php
             if(isset($_POST["delete"]))
             {
@@ -52,87 +52,50 @@
                     echo "<p>Error deleting post.</p>";
                 }
             }
-
-            $sql = "SELECT userID, postID, grenadeID, mapID, title, description FROM Posts";
-            if(isset($_GET["map"]))
-            {
-                $map = $_GET["map"];
-                if($map != "none")
-                {
-                    $mapSQL = "SELECT mapID FROM Maps WHERE name = '$map'";
-                    $result = $conn->query($mapSQL);
-                    $row = $result->fetch_assoc();
-                    $mapID = $row["mapID"];
-                }
-            }
-            if (isset($_GET["grenade"]))
-            {
-                $grenade = $_GET["grenade"];
-                if($grenade != "none")
-                {
-                    $grenadeSQL = "SELECT grenadeID FROM Grenades WHERE name = '$grenade'";
-                    $result = $conn->query($grenadeSQL);
-                    $row = $result->fetch_assoc();
-                    $grenadeID = $row["grenadeID"];
-                }
-            }
-            if (isset($mapID) && $map != "none" && isset($grenadeID) && $grenade != "none")
-            {
-                $sql .= " WHERE mapID = '$mapID' AND grenadeID = '$grenadeID'";
-            }
-            else if (isset($mapID) && $map != "none")
-            {
-                $sql .= " WHERE mapID = '$mapID'";
-            }
-            else if (isset($grenadeID) && $grenade != "none")
-            {
-                $sql .= " WHERE grenadeID = '$grenadeID'";
-            }
-            if (isset($_GET["sortBy"]))
-            {
-                $sortBy = $_GET["sortBy"];
-
-                switch ($sortBy)
-                {
-                    case "oldest":
-                        $sql .= " ORDER BY lastUpdated";
-                        break;
-                    default:
-                        $sql .= " ORDER BY lastUpdated DESC";
-                        break;
-                }
-            }
-            $result = $conn->query($sql);
-            if ($result->num_rows > 0) {
-                // output data of each row
-                while($row = $result->fetch_assoc()) {
-                    $sql = "SELECT username FROM Users WHERE userID = '".$row["userID"]."'";
-                    $posterUsername = $conn->query($sql)->fetch_assoc()["username"];
-                    $sql = "SELECT name FROM Maps WHERE mapID = '".$row["mapID"]."'";
-                    $mapName = $conn->query($sql)->fetch_assoc()["name"];
-                    $sql = "SELECT name FROM Grenades WHERE grenadeID = '".$row["grenadeID"]."'";
-                    $grenadeName = $conn->query($sql)->fetch_assoc()["name"];
-                    echo "<li><a href='lineup.php?postID=".$row["postID"]."'><div>";
-                    echo $row["title"]."&#09;&#09;&#09;&#09;";
-                    echo "Map: ".$mapName."&#09;&#09;&#09;&#09;";
-                    echo "Grenade Type: ".$grenadeName."<br>";
-                    echo "By ".$posterUsername;
-                    if(isset($userID) && $userID == $row["userID"])
-                    {
-                        include 'elements/deletepost.inc.php';
-                    }
-                    echo "</div></a></li>";
-                }
-            }
-            else
-            {
-                echo "<p style='text-align: center'>0 results match your query.</p>";
-            }
         ?>
-        </ul>
         </div>
     </body>
     <?php
         include 'elements/footer.inc.html';
     ?>
+    <script>
+        $(document).ready(function () {
+            getResults();
+        });
+        function getResults() {
+            $("#results").load("elements/searchresults.inc.php", 
+            { 
+                "map": document.getElementById("map").value, 
+                "grenade": document.getElementById("grenade").value,
+                "sortBy": document.getElementById("sortBy").value
+            });
+        }
+        function applySearchQuery() {
+        $(document).ready(function () {
+            // Declare variables
+            var input, filter, li, i, txtValue;
+            input = document.getElementById('searchInput');
+            filter = input.value.toUpperCase();
+            li = $('#results li');
+
+            // Loop through all list items, and hide those who don't match the search query
+            var showing = 0;
+            for (i = 0; i < li.length; i++) {
+                txtValue = $(li[i]).attr('id');
+                if (txtValue && txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                    showing++;
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+            // if(showing == 0) {
+            //     $("#noResults").css("display", "block");
+            // }
+            // else {
+            //     $("#noResults").css("display", "none");
+            // }
+        });
+        }
+    </script>
 </html>

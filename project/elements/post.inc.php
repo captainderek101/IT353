@@ -14,12 +14,21 @@
             $grenadeName = $conn->query($sql)->fetch_assoc()["name"];
             echo "Map: ".$mapName."&#09;&#09;&#09;&#09;Grenade Type: ".$grenadeName."<br>";
             
-            echo "<p>".$row["description"]."</p>";
+            if($row["description"] == "")
+            {
+                echo "<p>No description.</p>";
+            }
+            else 
+            {
+                echo "<div class='row'>";
+                echo $row["description"];
+                echo "</div>";
+            }
             if($row["pictureID"] != 0)
             {
                 $sql = "SELECT file FROM Pictures WHERE pictureID = '".$row["pictureID"]."'";
                 $filename = $conn->query($sql)->fetch_assoc()["file"];
-                echo "<img src='/project".$filename."' alt='Lineup screenshot'>";
+                echo "<img id='screenshot' src='/project".$filename."' alt='Lineup screenshot'>";
             }
 
             $sql = "SELECT username FROM Users WHERE userID = '".$row["userID"]."'";
@@ -28,7 +37,7 @@
         }
         else
         {
-            echo "<h2>Post not found...</h2>";
+            echo "<h2 id='error'>Post not found...</h2>";
         }
     ?>
     <!-- TODO: Location on map -->

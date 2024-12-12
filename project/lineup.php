@@ -36,7 +36,7 @@
                 $result = $conn->query($sql);
                 if($result === FALSE)
                 {
-                    echo "<h2> Post failed to be created. </h2>";
+                    echo "<h2 id='error'> Comment failed to be created. </h2>";
                 }
             }
 
@@ -47,11 +47,10 @@
                 $result = $conn->query($sql);
                 if($result === FALSE)
                 {
-                    echo "<p>Error deleting comment.</p>";
+                    echo "<p id='error'>Error deleting comment.</p>";
                 }
             }
         ?>
-        <!-- TODO: "Go back" button -->
         <br>
 
         <form id="typical" action="" method="GET">
@@ -61,49 +60,12 @@
                 include 'elements/dropdowns/sorting.options.inc.html';
             ?>
             <input style="display:none" type="text" name="postID" value="<?php echo $postID?>" readonly>
-            <input type="submit" value="Apply">
             <br>
         </form>
         <br>
         <!-- List of comments -->
-        <?php
-            $sql = "SELECT commentID, userID, description FROM Comments WHERE postID = '$postID'";
-            if (isset($_GET["sortBy"]))
-            {
-                $sortBy = $_GET["sortBy"];
-
-                switch ($sortBy)
-                {
-                    case "oldest":
-                        $sql .= " ORDER BY lastUpdated";
-                        break;
-                    default:
-                        $sql .= " ORDER BY lastUpdated DESC";
-                        break;
-                }
-            }
-            $result = $conn->query($sql);
-            if ($result->num_rows > 0) {
-                // output data of each row
-                echo "<div id='results'><ul>";
-                while($row = $result->fetch_assoc()) {
-                    echo "<li>";
-                    $sql = "SELECT username FROM Users WHERE userID = '".$row["userID"]."'";
-                    $commentUsername = $conn->query($sql)->fetch_assoc()["username"];
-                    echo $commentUsername.": ".$row["description"]."<br>";
-                    if(isset($userID) && $userID == $row["userID"])
-                    {
-                        include 'elements/deletecomment.inc.php';
-                    }
-                    echo "</li>";
-                }
-                echo "</ul></div>";
-            }
-            else
-            {
-                echo "<p style='text-align: center'>There are no comments.</p>";
-            }
-        ?>
+        <div id='results'>
+        </div>
         <form id="typical" action="lineup.php?postID=<?php echo $postID?>" method="POST">
             <?php
                 echo "<label for='sortBy'>";
@@ -119,7 +81,8 @@
                 echo "</label>";
             ?>
             <p>
-                <input type="text" id="comment" name="comment" placeholder="Write comment here">
+                <textarea <?php if (!isset($_SESSION['user'])) { echo "disabled"; } ?> id="comment" name="comment" 
+                    placeholder="Write comment here" maxlength="256"></textarea>
             </p>
             <p>
                 <?php
@@ -134,4 +97,17 @@
     <?php
         include 'elements/footer.inc.html';
     ?>
+    
+    <script>
+        $(document).ready(function () {
+            getResults();
+        });
+        function getResults() {
+            $("#results").load("elements/commentresults.inc.php", 
+            {
+                "sortBy": document.getElementById("sortBy").value,
+                "postID": <?php echo $postID ?>
+            });
+        }
+    </script>
 </html>

@@ -8,7 +8,7 @@
     }
 ?>
 <form id="logout" action="" method="POST">
-    <input style="display:none" type="text" name="logout" value="true" readonly>
     <input type="submit" value="Log Out">
+    <input style="display:none" type="text" name="logout" value="true" readonly>
 </form>
 </div>

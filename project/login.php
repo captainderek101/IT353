@@ -18,12 +18,12 @@
 
         <form id="typical" action="login.php" method="POST">
             <p>
-                <label for="username">Username: </label>
-                <input type="text" id="username" name="username" placeholder="Enter username">
+                <label class="required" for="username">Username: </label>
+                <input required type="text" id="username" name="username" placeholder="Enter username">
             </p>
             <p>
-                <label for="password">Password: </label>
-                <input type="text" id="password" name="password" placeholder="Enter password">
+                <label class="required" for="password">Password: </label>
+                <input required type="text" id="password" name="password" placeholder="Enter password">
             </p>
             <p>
                 <input type="submit" value="Log In">

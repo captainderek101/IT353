@@ -20,7 +20,6 @@
                 }
                 else
                 {
-                    echo "Logged in as ".$_SESSION['user']."<br>";
                     include "logout.inc.php";
                 }
             ?>
